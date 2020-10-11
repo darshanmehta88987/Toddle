@@ -7,15 +7,25 @@ const survey_model = require('../models/survey_model');
 
 router.get("/take/:id", verifyToken, function (req, res, next) {
 
-    survey_model.create_survey(req.body, function (err, rows) {
+    survey_model.take_survey(req.params.id, function (err, rows) {
         if (err) {
             res.json(err);
         } else {
             console.log(rows);
-            res.json({
-                message: "Survey Created",
-                id: "Use this " + rows.insertId + " to add questions to survey"
-            });
+            console.log(rows.length);
+            if(rows.length !== 0)
+            {
+                res.json({
+                    rows,
+                    message: "Survey questions visible on screen"
+                });
+            }
+            else{
+                res.json({
+                    message: "Survey does not exist"
+                });
+            }
+            
         }
     });
 });
