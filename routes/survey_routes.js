@@ -65,7 +65,7 @@ router.post("/create", verifyToken, function (req, res, next) {
             console.log(rows);
             res.json({
                 message: "Survey Created",
-                id: "Use this " + rows.insertId + " to add questions to survey"
+                id: "Use this " + rows.insertId + " id to add questions to survey"
             });
         }
     });
